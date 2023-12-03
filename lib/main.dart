@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app1/home.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,64 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  File? fileImage;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: fileImage == null
-            ? const SizedBox()
-            : Image(image: FileImage(File(fileImage!.path))),
-      ),
-
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          FloatingActionButton(
-            onPressed: openGallary,
-            tooltip: 'gallary',
-            child: const Icon(Icons.image),
-          ),
-          FloatingActionButton(
-            onPressed: openCamera,
-            tooltip: 'camera',
-            child: const Icon(Icons.camera_alt_sharp),
-          ),
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-  //== test ====
-
-  void openCamera() async {
-    var pickImage = await ImagePicker().pickImage(source: ImageSource.camera);
-    setState(() {
-      fileImage = File(pickImage!.path);
-    });
-  }
-
-  void openGallary() async {
-    var pickImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    setState(() {
-      fileImage = File(pickImage!.path);
-    });
   }
 }
